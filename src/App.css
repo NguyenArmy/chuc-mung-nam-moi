@@ -1,0 +1,321 @@
+/* src/App.css */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Dancing+Script:wght@700&family=Pangolin&display=swap');
+
+body {
+  margin: 0;
+  background-color: #2b0a0a;
+  /* Đỏ đen sâu thẳm */
+  color: white;
+  font-family: 'Montserrat', sans-serif;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  perspective: 1000px;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+/* --- KHUNG CẢNH CHÍNH --- */
+.card-scene {
+  width: 340px;
+  height: 500px;
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* --- CHÚ RỒNG CHIBI --- */
+.mascot-container {
+  position: absolute;
+  top: -90px;
+  right: -60px;
+  width: 150px;
+  height: 150px;
+  z-index: 20;
+  pointer-events: none;
+  /* Không chặn click */
+  animation: float 3s ease-in-out infinite;
+}
+
+.speech-bubble {
+  position: absolute;
+  top: 0px;
+  right: 130px;
+  background: white;
+  color: #333;
+  padding: 10px 15px;
+  border-radius: 20px 20px 0 20px;
+  font-family: 'Pangolin', cursive;
+  font-size: 0.9rem;
+  width: 140px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  text-align: right;
+}
+
+/* --- CARD LẬT --- */
+.card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform-style: preserve-3d;
+  cursor: pointer;
+}
+
+.card.is-flipped {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* MẶT TRƯỚC: Trang trí kiểu cung đình */
+.card-front {
+  background: radial-gradient(circle, #d32f2f 0%, #8e0000 100%);
+  border: 4px solid #ffd700;
+}
+
+/* Họa tiết nền mờ mặt trước */
+.pattern-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: radial-gradient(#ffd700 15%, transparent 16%),
+    radial-gradient(#ffd700 15%, transparent 16%);
+  background-size: 30px 30px;
+  background-position: 0 0, 15px 15px;
+  opacity: 0.1;
+}
+
+.btn-start {
+  background: linear-gradient(to bottom, #fff59d, #fbc02d);
+  color: #b71c1c;
+  border: 2px solid #fff;
+  padding: 15px 40px;
+  font-size: 1.2rem;
+  font-weight: 900;
+  border-radius: 50px;
+  box-shadow: 0 0 20px rgba(251, 192, 45, 0.6);
+  z-index: 2;
+  transition: transform 0.2s;
+  font-family: 'Pangolin', sans-serif;
+}
+
+.btn-start:hover {
+  transform: scale(1.1);
+}
+
+/* MẶT SAU */
+.card-back {
+  background: #fffdf0;
+  /* Màu giấy cũ */
+  color: #333;
+  transform: rotateY(180deg);
+  border: 8px double #d32f2f;
+}
+
+.corner-decoration {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 3px solid #d32f2f;
+  border-radius: 50%;
+}
+
+.top-left {
+  top: -25px;
+  left: -25px;
+}
+
+.top-right {
+  top: -25px;
+  right: -25px;
+}
+
+.bottom-left {
+  bottom: -25px;
+  left: -25px;
+}
+
+.bottom-right {
+  bottom: -25px;
+  right: -25px;
+}
+
+.wish-text {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  color: #b71c1c;
+  margin-bottom: 30px;
+  line-height: 1.5;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.1);
+}
+
+/* --- BAO LÌ XÌ VIỆT NAM --- */
+.envelope-wrapper {
+  height: 160px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.viet-envelope {
+  width: 100px;
+  height: 150px;
+  background: linear-gradient(135deg, #e53935, #b71c1c);
+  border-radius: 8px;
+  position: relative;
+  cursor: pointer;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ffeb3b;
+  overflow: hidden;
+}
+
+/* Nắp bao lì xì */
+.viet-envelope::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 40px;
+  background: #c62828;
+  border-radius: 0 0 50% 50%;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  z-index: 2;
+}
+
+/* Chữ "Lộc" hoặc Đồng xu ở giữa */
+.coin-decoration {
+  margin-top: 50px;
+  width: 50px;
+  height: 50px;
+  background: radial-gradient(circle, #fbc02d, #f57f17);
+  border-radius: 50%;
+  border: 2px solid #fff59d;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #b71c1c;
+  font-weight: bold;
+  font-family: serif;
+  font-size: 1.5rem;
+  box-shadow: 0 0 10px rgba(251, 192, 45, 0.8);
+}
+
+.shake {
+  animation: shake 0.5s infinite;
+}
+
+/* --- TỜ TIỀN --- */
+.money-bill {
+  width: 240px;
+  height: 110px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 2rem;
+  color: white;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  animation: popUp 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border: 4px solid rgba(255, 255, 255, 0.3);
+  position: relative;
+}
+
+.money-5k {
+  background: linear-gradient(135deg, #0288d1, #01579b);
+}
+
+.money-10k {
+  background: linear-gradient(135deg, #fbc02d, #f57f17);
+}
+
+.money-label {
+  font-size: 0.8rem;
+  font-weight: normal;
+  opacity: 0.8;
+  letter-spacing: 2px;
+}
+
+/* ANIMATIONS */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+@keyframes popIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateX(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateX(0);
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .card-scene {
+    width: 90%;
+    height: 420px;
+  }
+
+  .mascot-container {
+    width: 100px;
+    height: 100px;
+    top: -70px;
+    right: -20px;
+  }
+
+  .speech-bubble {
+    right: 80px;
+    font-size: 0.8rem;
+    width: 120px;
+  }
+
+  .wish-text {
+    font-size: 1.4rem;
+  }
+}
