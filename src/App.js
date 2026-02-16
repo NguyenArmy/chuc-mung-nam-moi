@@ -205,9 +205,9 @@ const App = () => {
           <ChibiHorse mood={mascotMood} />
         </div>
 
-        <div className={`card ${isFlipped ? 'is-flipped' : ''}`}>
+        <div className="card">
           {/* MẶT TRƯỚC */}
-          <div className="card-face card-front" onClick={handleStart}>
+          <div className={`card-face card-front ${isFlipped ? 'fall-down' : ''}`} onClick={handleStart}>
             <div className="pattern-bg"></div>
             <h1 className="front-title">2026</h1>
             <span className="front-subtitle">XUÂN ẤT TỴ</span>
@@ -215,7 +215,7 @@ const App = () => {
           </div>
 
           {/* MẶT SAU */}
-          <div className="card-face card-back">
+          <div className={`card-face card-back ${isFlipped ? 'rise-up' : ''}`}>
             <div className="wish-text">
               {wish.split('\n').map((line, i) => <div key={i}>{line}</div>)}
             </div>

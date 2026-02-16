@@ -15,6 +15,9 @@ body {
   color: white;
   font-family: 'Nunito', sans-serif;
   overflow: hidden;
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .app-container {
@@ -23,9 +26,9 @@ body {
   align-items: center;
   height: 100vh;
   width: 100vw;
-  perspective: 1200px;
   position: relative;
   z-index: 10;
+  overflow: hidden;
 }
 
 #canvas-fireworks {
@@ -42,8 +45,7 @@ body {
   width: 340px;
   height: 500px;
   position: relative;
-  display: flex;
-  justify-content: center;
+  overflow: visible;
   z-index: 20;
 }
 
@@ -89,21 +91,12 @@ body {
   width: 100%;
   height: 100%;
   position: relative;
-  transition: transform 0.9s cubic-bezier(0.4, 0.0, 0.2, 1);
-  transform-style: preserve-3d;
-  cursor: pointer;
-}
-
-.card.is-flipped {
-  transform: rotateY(180deg);
 }
 
 .card-face {
   position: absolute;
   width: 100%;
   height: 100%;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
@@ -118,8 +111,17 @@ body {
 
 .card-front {
   background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  transform: translateY(0) rotate(0deg);
+  opacity: 1;
+  z-index: 2;
+  cursor: pointer;
+  transition: transform 0.7s cubic-bezier(0.6, 0.0, 0.8, 0.4), opacity 0.6s ease-out;
+}
+
+.card-front.fall-down {
+  transform: translateY(150%) rotate(15deg);
+  opacity: 0;
+  pointer-events: none;
 }
 
 .pattern-bg {
@@ -167,6 +169,8 @@ body {
   cursor: pointer;
   font-family: 'Nunito', sans-serif;
   transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .btn-start:hover {
@@ -174,12 +178,23 @@ body {
   box-shadow: 0 15px 30px rgba(255, 215, 0, 0.5);
 }
 
+.btn-start:active {
+  transform: translateY(-1px);
+}
+
 .card-back {
   background: var(--cream);
   color: var(--primary-red);
-  transform: rotateY(180deg);
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
+  transform: translateY(150%);
+  opacity: 0;
+  z-index: 1;
+  transition: transform 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.1), opacity 0.6s ease-in;
+}
+
+.card-back.rise-up {
+  transform: translateY(0);
+  opacity: 1;
+  z-index: 3;
 }
 
 .wish-text {
@@ -217,6 +232,16 @@ body {
   border: 2px solid var(--gold);
   transition: transform 0.2s;
   z-index: 5;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.viet-envelope:hover {
+  transform: scale(1.05);
+}
+
+.viet-envelope:active {
+  transform: scale(0.98);
 }
 
 .viet-envelope::before {
@@ -343,11 +368,17 @@ body {
   font-family: 'Nunito', sans-serif;
   box-shadow: 0 5px 15px rgba(183, 28, 28, 0.4);
   transition: all 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
 }
 
 .btn-reset:hover {
   background: var(--deep-red);
   transform: translateY(-2px);
+}
+
+.btn-reset:active {
+  transform: translateY(0);
 }
 
 @keyframes float {
@@ -384,10 +415,37 @@ body {
   }
 }
 
+/* --- RESPONSIVE --- */
+@media (max-width: 768px) and (min-width: 481px) {
+  .card-scene {
+    width: 85%;
+    max-width: 360px;
+    height: 500px;
+  }
+
+  .front-title {
+    font-size: 4.5rem;
+  }
+
+  .wish-text {
+    font-size: 1.65rem;
+  }
+
+  .money-bill {
+    width: 240px;
+    height: 110px;
+  }
+}
+
 @media (max-width: 480px) {
   .card-scene {
     width: 90%;
+    max-width: 340px;
     height: 480px;
+  }
+
+  .card-face {
+    padding: 20px;
   }
 
   .mascot-container {
@@ -407,13 +465,82 @@ body {
     font-size: 4rem;
   }
 
+  .front-subtitle {
+    font-size: 1.1rem;
+  }
+
+  .btn-start {
+    padding: 12px 30px;
+    font-size: 1rem;
+  }
+
   .wish-text {
     font-size: 1.5rem;
+    margin-bottom: 20px;
+    min-height: 80px;
+  }
+
+  .envelope-area {
+    height: 130px;
+  }
+
+  .viet-envelope {
+    width: 90px;
+    height: 126px;
+  }
+
+  .coin-decoration {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
   }
 
   .money-bill {
     width: 220px;
     height: 100px;
     font-size: 1.8rem;
+  }
+
+  .btn-reset {
+    padding: 8px 25px;
+    font-size: 0.9rem;
+    margin-top: 15px;
+  }
+}
+
+@media (max-width: 360px) {
+  .card-scene {
+    width: 95%;
+    height: 450px;
+  }
+
+  .front-title {
+    font-size: 3.5rem;
+  }
+
+  .front-subtitle {
+    font-size: 1rem;
+    margin-bottom: 30px;
+  }
+
+  .btn-start {
+    padding: 10px 25px;
+    font-size: 0.95rem;
+  }
+
+  .wish-text {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    min-height: 70px;
+  }
+
+  .money-bill {
+    width: 200px;
+    height: 90px;
+    font-size: 1.6rem;
+  }
+
+  .money-label {
+    font-size: 0.8rem;
   }
 }
