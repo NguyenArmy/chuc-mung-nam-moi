@@ -103,6 +103,7 @@ body {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
   border-radius: 30px;
   display: flex;
   flex-direction: column;
@@ -117,6 +118,8 @@ body {
 
 .card-front {
   background: linear-gradient(135deg, var(--primary-red), var(--deep-red));
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .pattern-bg {
@@ -175,6 +178,8 @@ body {
   background: var(--cream);
   color: var(--primary-red);
   transform: rotateY(180deg);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
 }
 
 .wish-text {
