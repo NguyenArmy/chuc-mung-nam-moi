@@ -262,7 +262,6 @@ body {
   border: 3px solid rgba(255, 255, 255, 0.5);
   position: relative;
   transform-style: preserve-3d;
-  backface-visibility: visible;
   animation: spinReveal 0.8s cubic-bezier(0.19, 1, 0.22, 1) forwards;
   /* Nhanh hơn chút */
   overflow: hidden;
